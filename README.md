@@ -68,36 +68,21 @@ PORT=3000
 
 ### 4. Expose with Cloudflare Tunnel
 
-```bash
-# Install cloudflared if you haven't
-curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb -o cloudflared.deb
-sudo dpkg -i cloudflared.deb
-
-# Quick test (gives you a temporary URL)
-cloudflared tunnel --url http://localhost:3000
-
-# For a permanent setup, create a named tunnel:
-cloudflared tunnel create linear-calendar
-cloudflared tunnel route dns linear-calendar linear-calendar.yourdomain.com
-```
-
-Create `~/.cloudflared/config.yml`:
-
-```yaml
-tunnel: linear-calendar
-credentials-file: /home/pi/.cloudflared/<tunnel-id>.json
-
-ingress:
-  - hostname: linear-calendar.yourdomain.com
-    service: http://localhost:3000
-  - service: http_status:404
-```
-
-Then run:
+If you're running `cloudflared` in a Docker container, use `--network host` so it can reach the webhook service on `localhost:3000`. Without this, `localhost` inside the container refers to the container itself, not the host machine.
 
 ```bash
-cloudflared tunnel run linear-calendar
+docker run -d --restart unless-stopped --network host \
+  --name cloudflared cloudflare/cloudflared:latest \
+  tunnel --no-autoupdate run --token <your-tunnel-token>
 ```
+
+Then configure the route in the Cloudflare One dashboard:
+
+1. Go to **Networks** → **Connectors** and select your tunnel.
+2. Open the **Published Application Routes** tab.
+3. Add a new route with your desired subdomain (e.g. `linear-calendar.yourdomain.com`) and set the service to `http://localhost:3000`.
+
+If your domain is already onboarded on Cloudflare, this will automatically create a DNS record for the subdomain you choose.
 
 ### 5. Set up the Linear webhook
 
