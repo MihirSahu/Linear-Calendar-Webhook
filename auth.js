@@ -1,7 +1,7 @@
 /**
  * Run this script once to authorize with Google and generate token.json.
  *
- * Usage: node src/auth.js
+ * Usage: node auth.js
  */
 
 const { google } = require("googleapis");

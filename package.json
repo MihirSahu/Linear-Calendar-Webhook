@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "auth": "node src/auth.js"
+    "start": "node index.js",
+    "auth": "node auth.js"
   },
   "keywords": [],
   "author": "",

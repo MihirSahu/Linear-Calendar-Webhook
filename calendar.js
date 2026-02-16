@@ -44,7 +44,7 @@ async function getCalendarClient() {
     });
   } else {
     throw new Error(
-      `No token found at ${tokenPath}. Run "node src/auth.js" first to authorize.`
+      `No token found at ${tokenPath}. Run "node auth.js" first to authorize.`
     );
   }
 
