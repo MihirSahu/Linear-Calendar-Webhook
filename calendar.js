@@ -64,12 +64,12 @@ async function createEvent({ title, description, location, start, end, attendees
     description: description || "",
     location: location || "",
     start: {
-      dateTime: start.toISOString(),
-      timeZone: "America/Chicago", // Austin, TX
+      dateTime: start.toISOString().replace("Z", ""),
+      timeZone: process.env.TIMEZONE || "America/Chicago",
     },
     end: {
-      dateTime: end.toISOString(),
-      timeZone: "America/Chicago",
+      dateTime: end.toISOString().replace("Z", ""),
+      timeZone: process.env.TIMEZONE || "America/Chicago",
     },
     attendees: (attendees || []).map((email) => ({ email })),
     reminders: {

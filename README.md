@@ -63,6 +63,7 @@ Edit `.env`:
 LINEAR_WEBHOOK_SECRET=your_secret_here
 LINEAR_LABEL_NAME=calendar
 GOOGLE_CALENDAR_ID=primary
+TIMEZONE=America/Chicago
 PORT=3000
 ```
 
