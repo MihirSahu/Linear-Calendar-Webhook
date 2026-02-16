@@ -107,36 +107,22 @@ cloudflared tunnel run linear-calendar
 4. Select **Issues** as the resource and **Create** as the action.
 5. Copy the signing secret into your `.env` as `LINEAR_WEBHOOK_SECRET`.
 
-### 6. Run the service
+### 6. Run with Docker
 
 ```bash
-npm start
+docker compose up -d
 ```
 
-### Running as a systemd service (recommended for Pi)
+This builds the image, maps port 3000, loads your `.env`, and mounts `credentials.json` and `token.json` into the container.
 
-Create `/etc/systemd/system/linear-calendar.service`:
-
-```ini
-[Unit]
-Description=Linear Calendar Webhook
-After=network.target
-
-[Service]
-Type=simple
-User=pi
-WorkingDirectory=/home/pi/linear-calendar-webhook
-ExecStart=/usr/bin/node src/index.js
-Restart=on-failure
-EnvironmentFile=/home/pi/linear-calendar-webhook/.env
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Then:
+To view logs:
 
 ```bash
-sudo systemctl enable linear-calendar
-sudo systemctl start linear-calendar
+docker compose logs -f
+```
+
+To stop:
+
+```bash
+docker compose down
 ```
