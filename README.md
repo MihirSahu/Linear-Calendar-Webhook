@@ -140,4 +140,3 @@ Then:
 sudo systemctl enable linear-calendar
 sudo systemctl start linear-calendar
 ```
-# Linear-Calendar-Webhook
