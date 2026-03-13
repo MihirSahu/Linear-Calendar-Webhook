@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const { handleWebhook } = require("./webhook");
+const { handleImessage } = require("./imessage");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,8 +23,12 @@ app.get("/health", (_req, res) => {
 // Linear webhook endpoint
 app.post("/webhook/linear", handleWebhook);
 
+// iMessage webhook endpoint
+app.post("/webhook/imessage", handleImessage);
+
 app.listen(PORT, () => {
   console.log(`Linear Calendar Webhook running on port ${PORT}`);
   console.log(`Webhook endpoint: POST /webhook/linear`);
+  console.log(`iMessage endpoint: POST /webhook/imessage`);
   console.log(`Filtering for label: "${process.env.LINEAR_LABEL_NAME || "calendar"}"`);
 });

@@ -1,6 +1,6 @@
-# Linear → Google Calendar Webhook
+# Linear → Google Calendar Webhook + iMessage Integration
 
-A self-hosted Node.js service that listens for Linear issue creation webhooks and automatically creates Google Calendar events with invites when issues have a specific label.
+A self-hosted Node.js service that listens for Linear issue creation webhooks and automatically creates Google Calendar events with invites when issues have a specific label. Also supports creating Linear issues from iMessages via an iOS Shortcut.
 
 ## How It Works
 
@@ -65,6 +65,9 @@ LINEAR_LABEL_NAME=calendar
 GOOGLE_CALENDAR_ID=primary
 TIMEZONE=America/Chicago
 PORT=3000
+LINEAR_API_KEY=lin_api_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+LINEAR_TEAM_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+IMESSAGE_WEBHOOK_SECRET=some-long-random-string
 ```
 
 ### 4. Expose with Cloudflare Tunnel
@@ -93,7 +96,41 @@ If your domain is already onboarded on Cloudflare, this will automatically creat
 4. Select **Issues** as the resource and **Create** as the action.
 5. Copy the signing secret into your `.env` as `LINEAR_WEBHOOK_SECRET`.
 
-### 6. Run with Docker
+### 6. Set up the iMessage → Linear integration
+
+#### Get your Linear API key and team ID
+
+1. Go to **Linear** → **Settings** → **API** → **Personal API keys**.
+2. Create a new key and copy it into your `.env` as `LINEAR_API_KEY`.
+3. Go to **Settings** → **Teams**, click your team, and copy the team ID from the URL into `LINEAR_TEAM_ID`.
+
+#### Generate a webhook secret
+
+Pick a random string for `IMESSAGE_WEBHOOK_SECRET` — this authenticates requests to the endpoint. You can generate one with:
+
+```bash
+openssl rand -hex 32
+```
+
+#### Create the iOS Shortcut
+
+1. Open **Shortcuts** on your iPhone.
+2. Create a new Shortcut with these actions:
+   - **Get Contents of URL**:
+     - URL: `https://your-domain.com/webhook/imessage`
+     - Method: **POST**
+     - Headers: `Authorization` → `Bearer <your-IMESSAGE_WEBHOOK_SECRET>`
+     - Request Body: **JSON** → key `text`, value: **Shortcut Input**
+3. Go to the **Automation** tab → **New Automation**.
+4. Choose **Message** trigger:
+   - **Message Contains:** `@linear`
+   - Optionally filter by **Sender** to limit to a specific chat.
+5. Set the action to **Run Shortcut** → select the shortcut you just created, passing the **message text** as input.
+6. Disable **Ask Before Running** for hands-free operation.
+
+Now, any incoming iMessage containing `@linear` will automatically create a Linear issue. For example, a message like `@linear Fix the login page bug` creates an issue titled "Fix the login page bug".
+
+### 7. Run with Docker
 
 ```bash
 docker compose up -d
