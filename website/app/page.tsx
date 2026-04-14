@@ -226,6 +226,25 @@ export default function HomePage() {
         <div className="container footer-row">
           <p>Linear Calendar Webhook</p>
           <p>Built for people with calendar-obsessed girlfriends</p>
+          <a
+            className="footer-github-link"
+            href="https://github.com/MihirSahu/Linear-Calendar-Webhook"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Linear Calendar Webhook on GitHub"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+              className="header-link-icon"
+            >
+              <path
+                fill="currentColor"
+                d="M12 .5C5.649.5.5 5.649.5 12A11.5 11.5 0 0 0 8.36 22.04c.575.106.786-.25.786-.556 0-.274-.01-1-.015-1.963-3.251.707-3.937-1.566-3.937-1.566-.532-1.352-1.3-1.712-1.3-1.712-1.063-.727.08-.712.08-.712 1.175.083 1.793 1.206 1.793 1.206 1.044 1.789 2.739 1.272 3.406.973.106-.756.409-1.272.744-1.564-2.595-.295-5.324-1.297-5.324-5.773 0-1.275.456-2.318 1.204-3.136-.12-.296-.522-1.486.114-3.099 0 0 .983-.315 3.22 1.198A11.207 11.207 0 0 1 12 6.174c.993.004 1.993.134 2.928.395 2.236-1.513 3.218-1.198 3.218-1.198.638 1.613.236 2.803.116 3.099.75.818 1.202 1.861 1.202 3.136 0 4.487-2.733 5.474-5.337 5.763.42.36.794 1.07.794 2.157 0 1.558-.014 2.814-.014 3.197 0 .31.207.668.792.555A11.502 11.502 0 0 0 23.5 12C23.5 5.649 18.351.5 12 .5Z"
+              />
+            </svg>
+          </a>
         </div>
       </footer>
     </main>

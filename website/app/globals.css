@@ -331,7 +331,7 @@ code {
 }
 
 .terminal-code,
-.setup-code pre {
+.setup-code {
   margin: 0;
 }
 
@@ -356,7 +356,12 @@ code {
   font-weight: 590;
 }
 
-.setup-list,
+.setup-list {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.75;
+}
+
 .setup-code {
   overflow-x: auto;
   color: var(--text-secondary);
@@ -417,6 +422,8 @@ code {
 .setup-card {
   padding: 1.25rem;
   border-radius: var(--radius-xl);
+  min-width: 0;
+  max-width: 100%;
 }
 
 .setup-header {
@@ -424,6 +431,10 @@ code {
   grid-template-columns: auto 1fr;
   gap: 1rem;
   align-items: start;
+}
+
+.setup-header > div {
+  min-width: 0;
 }
 
 .setup-step {
@@ -439,6 +450,8 @@ code {
 .setup-code {
   margin-top: 1rem;
   padding: 1rem;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .site-footer {
@@ -453,6 +466,28 @@ code {
   font-size: 0.82rem;
 }
 
+.footer-github-link {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.02);
+  transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.footer-github-link:hover,
+.footer-github-link:focus-visible {
+  color: var(--text-primary);
+  border-color: rgba(130, 143, 255, 0.32);
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateY(-1px);
+}
+
 @media (max-width: 1024px) {
   .hero-grid,
   .feature-grid {
@@ -461,8 +496,16 @@ code {
 }
 
 @media (max-width: 768px) {
+  .container {
+    width: min(calc(100% - 2.5rem), var(--container));
+  }
+
+  .site-header {
+    display: none;
+  }
+
   .hero-section {
-    padding-top: 4rem;
+    padding-top: 1.25rem;
   }
 
   .hero-copy,
@@ -473,20 +516,39 @@ code {
     border-radius: var(--radius-lg);
   }
 
-  .nav-row,
+  .nav-links {
+    display: none;
+  }
+
   .footer-row,
   .setup-header {
     grid-template-columns: 1fr;
     display: grid;
   }
 
+  .footer-row {
+    gap: 0.4rem;
+  }
+
+  .footer-github-link {
+    display: inline-flex;
+    margin-top: 0.1rem;
+    justify-self: start;
+  }
+
   .footer-meta {
     justify-content: space-between;
   }
 
-  .nav-links {
-    flex-wrap: wrap;
-    gap: 0.8rem 1rem;
+  .setup-code,
+  .setup-code code {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .setup-code {
+    overflow-x: hidden;
   }
 
   .hero-copy h1,
@@ -498,7 +560,11 @@ code {
 
 @media (max-width: 540px) {
   .container {
-    width: min(calc(100% - 1.25rem), var(--container));
+    width: min(calc(100% - 2rem), var(--container));
+  }
+
+  .hero-section {
+    padding-top: 1rem;
   }
 
   .hero-actions {
