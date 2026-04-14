@@ -1,0 +1,25 @@
+{
+  "name": "linear-calendar-webhook-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website for the Linear Calendar Webhook project",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "next": "^16.2.3",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.3",
+    "typescript": "^6.0.2"
+  }
+}
